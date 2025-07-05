@@ -31,4 +31,4 @@ for container in $ALL_CONTAINERS; do
   done
 done
 
-echo "✅ Ненужные контейнеры обработаны."
+echo "✅ Ненужные контейнеры обработаны"
