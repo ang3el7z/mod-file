@@ -17,10 +17,18 @@ ALL_CONTAINERS=$(docker ps -a --format "{{.Names}}")
 for container in $ALL_CONTAINERS; do
   for pattern in "${UNWANTED_CONTAINERS[@]}"; do
     if [[ "$container" == *"$pattern"* ]]; then
-      echo "🛑 Останавливаю контейнер: $container"
-      docker stop "$container" >/dev/null 2>&1
+      STATUS=$(docker inspect -f '{{.State.Status}}' "$container")
+      if [[ "$STATUS" == "exited" || "$STATUS" == "created" || "$STATUS" == "dead" ]]; then
+        echo "ℹ️ Контейнер '$container' уже был остановлен (статус: $STATUS)."
+      elif [[ "$STATUS" == "running" ]]; then
+        echo "🛑 Останавливаю контейнер: $container"
+        docker stop "$container" >/dev/null 2>&1
+      else
+        echo "⚠️ Контейнер '$container' в состоянии '$STATUS', пропускаю."
+      fi
+      break
     fi
   done
 done
 
-echo "✅ Ненужные контейнеры остановлены."
+echo "✅ Ненужные контейнеры обработаны."
