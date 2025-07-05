@@ -33,6 +33,3 @@ echo 'vm.swappiness=10' >> /etc/sysctl.conf
 echo "Swap успешно создан и активирован:"
 swapon --show
 free -m
-
-echo "Удаляю скрипт..."
-rm -- "$0"
