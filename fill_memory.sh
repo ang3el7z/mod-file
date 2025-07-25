@@ -16,7 +16,7 @@ while true; do
     USED_MB=`expr $BLOCK_INDEX \* $BLOCK_SIZE_MB`
     echo "Добавлено $BLOCK_INDEX × ${BLOCK_SIZE_MB}MB = ${USED_MB}MB"
 
-    echo -n "➕ Добавить ещё ${BLOCK_SIZE_MB}MB? (y/n): "
+    echo -n "➕ Добавить ещё ${BLOCK_SIZE_MB}MB? (y/n) ➕: "
     read add_more
     if [ "$add_more" != "y" ]; then
         break
@@ -38,7 +38,7 @@ read confirm
 if [ "$confirm" = "y" ]; then
     rm -rf "$TMP_DIR"
     echo "["`date`"] Память освобождена (удалены временные файлы)" >> "$LOG_FILE"
-    echo "✅ Память очищена."
+    echo "✅ Память очищена. ✅"
 else
-    echo "⚠️ Память оставлена занятой. Удаление вручную: rm -rf $TMP_DIR"
+    echo "⚠️ Память оставлена занятой. Удаление вручную: rm -rf $TMP_DIR ⚠️"
 fi
